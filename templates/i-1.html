@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hearing Test Website</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* General Styles */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        background-size: 400% 400%;
+        animation: bgAnimation 10s infinite alternate ease-in-out;
+      }
+      @keyframes bgAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 100% 50%;
+        }
+      }
+      h1 {
+        text-align: center;
+        color: #fff;
+        text-shadow: 0 0 15px #00eaff, 0 0 30px #00eaff;
+        font-size: 3.5rem;
+        font-weight: bold;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        max-width: 800px;
+        height:78vh;
+        margin: auto;
+        text-align: center;
+        justify-content:center;
+        opacity: 0;
+        animation: fadeInUp 1.5s ease-in-out forwards;
+      }
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .btn {
+        font-size: 18px;
+        padding: 12px 30px;
+        border-radius: 50px;
+        background: linear-gradient(90deg, #ff00ff, #ff4b2b);
+        color: white;
+        border: none;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 8px 20px rgba(255, 0, 255, 0.8);
+      }
+      .navbar {
+        background: rgba(0, 0, 0, 0.9) !important;
+        box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+      }
+      .navbar-brand,
+      .nav-link {
+        color: #f8f9fa !important;
+      }
+      .nav-link:hover {
+        color: #00eaff !important;
+        transform: translateY(-3px);
+      }
+      footer {
+        text-align: center;
+        color: #f8f9fa;
+        background: #000;
+        padding: 15px 0;
+      }
+      @media (max-width: 768px) {
+        .glass-card {
+          padding: 20px;
+        }
+      }
+      .welcome-message {
+        color: #00eaff;
+        margin-right: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/instructions"
+        ><i class="fas fa-hand-pointer"></i> Instructions</a
+      >
+      <a class="navbar-brand" href="/location"
+        ><i class="fas fa-map-marker-alt"></i> ENT Hospital Locations</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <span id="welcome-message" class="welcome-message d-none"></span>
+          </li>
+          <li class="nav-item">
+            <a id="auth-link" class="nav-link" href="/login"
+              ><i class="fas fa-sign-in-alt"></i> Login</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard"
+              ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/index"
+              ><i class="fas fa-headphones"></i> Hearing Test</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container mt-5 mb-5 text-center">
+      <div class="card glass-card">
+        <h1>Welcome to the Advanced Hearing Health Tracker</h1>
+        <p>Use the navigation menu to explore the features.</p>
+        <a href="/index" class="btn btn-primary mt-3"
+          ><i class="fas fa-play"></i> Start Test</a
+        >
+      </div>
+    </div>
+    <footer>
+      <p>
+        &copy; 2025 Hearing Health Tracker | Designed by
+        <b>Sonic Spectrum Team</b>
+      </p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        checkAuthStatus();
+
+        // More frequent check (every minute)
+        setInterval(checkAuthStatus, 60000);
+      });
+
+      function checkAuthStatus() {
+        fetch("/check-auth")
+          .then((response) => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+          })
+          .then((data) => {
+            updateAuthUI(data.authenticated, data.username);
+          })
+          .catch((error) => {
+            console.error("Error checking auth status:", error);
+            // Fallback to not authenticated state
+            updateAuthUI(false, "");
+          });
+      }
+
+      function updateAuthUI(isAuthenticated, username) {
+        const authLink = document.getElementById("auth-link");
+        const welcomeMessage = document.getElementById("welcome-message");
+
+        if (isAuthenticated) {
+          authLink.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+          authLink.href = "#";
+          authLink.onclick = handleLogout;
+
+          welcomeMessage.textContent = `Welcome, ${username}`;
+          welcomeMessage.classList.remove("d-none");
+        } else {
+          authLink.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+          authLink.href = "/login";
+          authLink.onclick = null;
+
+          welcomeMessage.classList.add("d-none");
+        }
+      }
+
+      function handleLogout(e) {
+        e.preventDefault();
+
+        fetch("/api/logout", {
+          method: "POST",
+          credentials: "same-origin", // Important for session cookies
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) throw new Error("Logout failed");
+            return response.json();
+          })
+          .then((data) => {
+            if (data.status === "success") {
+              // Force a hard refresh to clear any cached state
+              window.location.href = "/?logout=1";
+            }
+          })
+          .catch((error) => {
+            console.error(
+              "API logout failed, falling back to regular logout:",
+              error
+            );
+            window.location.href = "/logout";
+          });
+      }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

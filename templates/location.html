@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENT Hospitals in Coimbatore</title>
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e9ecef, #f8f9fa);
+    background-image: url('location.jpg');
+    background-size: cover;
+    background-blend-mode: lighten;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #ff5e00;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+}
+
+#searchInput {
+    padding: 12px;
+    margin: 20px auto;
+    width: 50%;
+    display: block;
+    border: 2px solid #ff5e00;
+    border-radius: 30px;
+    font-size: 1rem;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(255, 94, 0, 0.3);
+}
+
+#searchInput:focus {
+    border-color: #d84315;
+    outline: none;
+    box-shadow: 0 4px 15px rgba(216, 67, 21, 0.4);
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background: #ff5e00;
+    color: white;
+    font-size: 1.1em;
+}
+
+tr:nth-child(even) {
+    background-color: #ffecd6;
+}
+
+tr:hover {
+    background: #ffd6b3;
+    transition: 0.3s;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #ff5e00;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #d84315;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    #searchInput {
+        width: 80%;
+    }
+    
+    table {
+        width: 100%;
+        font-size: 0.9em;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<h2>ENT Hospitals in Coimbatore</h2>
+
+<input type="text" id="searchInput" onkeyup="searchHospital()" placeholder="Search for hospitals...">
+
+<table id="hospitalTable">
+    <thead>
+        <tr>
+            <th>Hospital Name</th>
+            <th>Rating</th>
+            <th>Address</th>
+            <th>Services Offered</th>
+            <th>Contact Number</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>VIKRAM E.N.T HOSPITAL & RESEARCH INSTITUTE</td>
+            <td>4.4</td>
+            <td>Near Bharat Petrol R S Puram, Coimbatore</td>
+            <td>Hearing Aid Fitting Service, Pediatric ENT Consultation</td>
+            <td>07487982715</td>
+            <td><a href="https://maps.app.goo.gl/qF9agawW5dqjWTUt7">click</a></td>
+        </tr>
+        <tr>
+            <td>Sarans Hospitals</td>
+            <td>4.5</td>
+            <td>Near Womens Polytechnic Papanaickenpalayam, Coimbatore</td>
+            <td>Ayurvedic General Consultation</td>
+            <td>07383129124</td>
+            <td><a href="https://maps.app.goo.gl/S53hyoiz8WsJAeXT9">click</a></td>
+        </tr>
+        <tr>
+            <td>Vikram Ent Hospital & Research Institute</td>	
+            <td>4.5</td>
+            <td>Near Dhanalakshmi Bank RS Puram Coimbatore</td>
+            <td>Pediatric ENT Consultation</td>
+            <td>08123192527</td>
+            <td><a href="https://maps.app.goo.gl/ADaCkx7q5zUQivX6A">click</a></td>
+        </tr>
+        <tr>
+            <td>SLV Hospital and Cancer Centre</td>
+            <td>3.4</td>
+            <td>Near D 1 Police Check Post Ramanathapuram Coimbatore, Coimbatore</td>
+            <td>Cosmetic and Aesthetic Treatment<br>Senior Citizen Health Checkup<br>Pediatric Consultation</td>
+            <td>08460553736</td>
+            <td><a href="https://maps.app.goo.gl/TMMoZXZs56oHLTDA8">click</a></td>
+        </tr>
+        <tr>
+            <td>Sarvam Institute Of ENT & Research</td>
+            <td>4.5</td>
+            <td>Near N M Hospital Ramanathapuram Coimbatore,Coimbatore</td>
+            <td>ENT hospitals</td>
+            <td>0422 231 7612</td>
+            <td><a href="https://maps.app.goo.gl/uHUuHd1MhKHKFkWx7">click</a></td>
+        </tr>
+        <tr>
+            <td>Anp Nursing Home</td>
+            <td>4.1</td>
+            <td>Near N M Hospital Ramanathapuram Coimbator,Coimbatore</td>
+            <td>Endocrinology Test<br>Cardiologist Consultation<br>Obstetrics Problems</td>
+            <td>07383614369</td>
+            <td><a href="https://maps.app.goo.gl/FTmN7CmxebBETeFv7">click</a></td>
+        </tr>
+        <tr>
+            <td>Nesam Ent Skin Laser Hospital</td>
+            <td>4.2</td>
+            <td>Near Perumal Temple Saravanampatti,Coimbatore</td>
+            <td>Pediatric ENT Consultation<br>Hearing Aid Fitting Service</td>
+            <td>09150388818</td>
+            <td><a href="https://maps.app.goo.gl/WaVnvd57oDCjYRjL7">click</a></td>
+        </tr>
+        <tr>
+            <td>N M Hospital</td>
+            <td>4.1</td>
+            <td>Near Rhr Hotel Ramanathapuram Coimbatore, Coimbatore</td>
+            <td>24 Hours Open<br>Gynaecological Cancer Treatment<br>Pediatric Orthopedic Consultation</td>
+            <td>(not available)</td>
+            <td><a href="https://maps.app.goo.gl/NpqZGVVJWzK9uJ6j8">click</a></td>
+        </tr>
+        <tr>
+            <td>Covai Cosmetic Surgery And Shivani Medical Centre</td>
+            <td>4.9</td>
+            <td>BEHIND OF SRI MURUGAN CINEMA Thudialur, coimbatore</td>
+            <td>Vaginoplasty<br>Pediatric ENT Consultation</td>
+            <td>09486064412</td>
+            <td><a href="https://maps.app.goo.gl/KvQuzn9hRucnvRxT7">click</a></td>
+        </tr>
+        <tr>
+            <td>Royal Care Super Speciality Hospital</td>
+            <td>4.5</td>
+            <td>L&T Toll Gate, Bye Pass 1 520, Salem - Kochi Hwy, Neelambur, Tamil Nadu 641062</td>
+            <td>24 Hours Ambulance Service<br>Adolescent Care<br>Diseases In Pregnancy</td>
+            <td>04222227000</td>
+            <td><a href="https://maps.app.goo.gl/Ggph8CyV3E85zsfC6">click</a></td>
+        </tr>
+        <tr>
+            <td>Hindusthan Hospital</td>
+            <td>4.4</td>
+            <td>522/3, Hindustan Hospital Rd, behind EB Substation, KR Puram, Coimbatore, Tamil Nadu 641028</td>
+            <td>Total Shoulder Replacement</td>
+            <td>04224327777</td>
+            <td><a href="https://maps.app.goo.gl/i8jBMSkxFNSESxU16">click</a></td>
+        </tr>
+        <tr>
+            <td>Mcv Ent Hospital</td>
+            <td>4.7</td>
+            <td>2X3H+95J, Race Course, Coimbatore, Tamil Nadu 642001</td>
+            <td>Pediatric ENT Consultation<br></td>
+            <td>04224974809</td>
+            <td><a href="https://maps.app.goo.gl/cTdNSJBKom9A2RPz5">click</a></td>
+        </tr>
+        <tr>
+            <td>Sathya Medical Centre And Hospital</td>
+            <td>4.6</td>
+            <td>1st Street, Sivananda Colony, Tatabad, Coimbatore, Tamil Nadu 641012</td>
+            <td>Pediatric Consultation<br>Cosmetic and Aesthetic Treatment<br>Diseases In Pregnancy</td>
+            <td>0422 249 6989</td>
+            <td><a href="https://maps.app.goo.gl/xqfUvcrPU7P7HuoP7">click</a></td>
+        </tr>
+        <tr>
+            <td>V G Hospital</td>
+            <td>3.9</td>
+            <td>76/A, Mettupalayam Rd, VKL Nagar, Thudiyalur, Kurudampalayam, Tamil Nadu 641029</td>
+            <td>Endocrinology Test<br>24 Hours Open<br>Animal Diseases</td>
+            <td>0422 264 2071</td>
+            <td><a href="https://maps.app.goo.gl/4ZdKGSAdnxvnhfmTA">click</a></td>
+        </tr>
+        <tr>
+            <td>K R Health Care Pvt Ltd</td>
+            <td>4.1</td>
+            <td>No 91 F, Mettupalayam Rd, Thiruvalluvar Nagar, Veerapandi Pirivu, Periyanaickenpalayam, Tamil Nadu 641020</td>
+            <td>Family Medicine<br>Diseases In Pregnancy<br>Obstetrics Problems</td>
+            <td>(not available)</td>
+            <td><a href="https://maps.app.goo.gl/g3ByM6x7mvxKiXfs6">click</a></td>
+        </tr>
+        <tr>
+            <td>Kalpana Medical Centre</td>
+            <td>4.0</td>
+            <td>Kalpana Medical Center, Mettupalayam Rd, Jayanthi Nagar, Koundampalayam, Coimbatore, Tamil Nadu 641030</td>
+            <td>Obstetrics Problems<br>Tailbone Pain (Coccydynia)<br>Family Medicine</td>
+            <td>0422 243 5597</td>
+            <td><a href="https://maps.app.goo.gl/NDCpi4MXYmE5qAcr7">click</a></td>
+        </tr>
+        <tr>
+            <td>Ashwin Hospital</td>
+            <td>3.8</td>
+            <td>Sathy Main Road, 1, Alamu Nagar Rd, Near GP Theatre, Gandhipuram, Tamil Nadu 641012</td>
+            <td>Obstetrics Problems<br>Diseases In Pregnancy<br>Pediatric ENT Consultation</td>
+            <td>097877 30400</td>
+            <td><a href="https://maps.app.goo.gl/T5AKPKYHPGCt5Xyz9">click</a></td>
+        </tr>
+        <tr>
+            <td>Dr. Naveen Balaji Herbocare Hospital</td>
+            <td>4.5</td>
+            <td>41 43, Soundarajan St, T. Nagar, Chennai, Tamil Nadu 600017</td>
+            <td>Preventive Nephrology Consultation<br>Diseases In Pregnancy<br>Tailbone Pain (Coccydynia)</td>
+            <td>085083 90009</td>
+            <td><a href="https://maps.app.goo.gl/x8iQc9rdnanDNG8N7">click</a></td>
+        </tr>
+        <tr>	
+            <td>Kovai ENT Hospital</td>
+            <td>3.6</td>
+            <td>Sathy Main Road CMS Bus Stop, near Bsnl Exchange, Ganapathy Housing Unit, Coimbatore, Tamil Nadu 641006</td>
+            <td>Pediatric ENT Consultation</td>
+            <td>(not available)</td>
+            <td><a href="https://maps.app.goo.gl/ExGU7VvGrF5fBKDL9">click</a></td>
+        </tr>
+        <tr>	
+            <td>CSR Nursing Home</td>
+            <td>4.2</td>
+            <td>2XC8+QCX, Coimbatore, Tamil Nadu 641012</td>
+            <td>24 Hours Dentists<br>Tuberculosis Treatment<br></td>
+            <td>(not available)</td>
+            <td><a href="https://maps.app.goo.gl/s2zEapZWHGgPj2hu9">click</a></td>
+        </tr>
+        <tr>	
+            <td>Vishnu Ent Hospital</td>
+            <td>4.1</td>
+            <td>109, NSR Rd, Saibaba Kovil, Saibaba Mission, A. K. Nagar, Nesavaalar Colony, Saibaba, Coimbatore, Tamil Nadu 641043</td>
+            <td>Ent hospitals<br></td>
+            <td>0422 244 6049</td>
+            <td><a href="https://maps.app.goo.gl/Lxc4YmxJ3ZJSSbrF9">click</a></td>
+        </tr>
+        <tr>
+            <td>Vega ENT Hospital</td>
+            <td>3.9</td>
+            <td>Guru Govind Singh Road, 30, Cowley Brown Rd, Vincent Colony, R.S. Puram, Coimbatore, Tamil Nadu 641002</td>
+            <td>Pediatric ENT Consultation<br></td>
+            <td>04222552592</td>
+            <td><a href="https://maps.app.goo.gl/86f5BoxdE2yjSh78A">click</a></td>
+        </tr>
+        <tr>
+            <td>Dr. Ezhil ENT Hospital</td>
+            <td>4.1</td>
+            <td>Sri Andal Layout, Coimbatore, Tamil Nadu 641005</td>
+            <td>Ent hospitals</td>
+            <td>09790555825</td>
+            <td><a href="https://maps.app.goo.gl/zmwYyfRvEFK6ab5BA">click</a></td>
+        </tr>
+        <tr>	
+            <td>K J Hospital</td>
+            <td>3.5</td>
+            <td>56-A, Palakkad - Coimbatore Rd, Sunnambu Kalvai, Kuniyamuthur, Coimbatore, Tamil Nadu 641008</td>
+            <td>Senior Citizen Health Checkup<br>Obstetrics Problems<br>Overseas Medical Insurance</td>
+            <td>09655444777</td>
+            <td><a href="https://maps.app.goo.gl/QRfPBUcnMaGs3jxg6">click</a></td>
+        </tr>
+        <tr>
+            <td>Snekaram Hospital</td>
+            <td>4.0</td>
+            <td>5 - 1, Venkateswara Thirumoorthy Lay Out, LIC Colony Rd, Selvapuram, Tamil Nadu 641026</td>
+            <td>Endocrinology Test<br>Cardiologist Consultation<br>Obstetrics Problems</td>
+            <td>0422 234 1552</td>
+            <td><a href="https://maps.app.goo.gl/AawCLNQSo3wkj5c16">click</a></td>
+        </tr>
+        <tr>
+            <td>G R Hospital</td>
+            <td>4.2</td>
+            <td>30, 2262+4XR Ram gardens, Nethaji Rd, Udayampalayam, Coimbatore, Tamil Nadu 641028</td>
+            <td>Ent hospitals<br></td>
+            <td>(not available)</td>
+            <td><a href="https://maps.app.goo.gl/MHhFAmmkNrYR31iC9">click</a></td>
+        </tr>
+        <tr>
+            <td>Bethany Medical Centre</td>
+            <td>4.1</td>
+            <td>Anaikatti, Tamil Nadu 641108</td>
+            <td>Ent hospitals<br></td>
+            <td>(not available)</td>
+            <td><a href="https://maps.app.goo.gl/W5rkZcfRKnFYJe9f9">click</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function searchHospital() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("hospitalTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those that don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0]; // Search based on the first column (Hospital Name)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

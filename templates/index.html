@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hearing Test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background: radial-gradient(circle, #1e3c72, #2a5298);
+            color: #ecf0f1;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #0f1b3d;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            max-width: 1100px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #f39c12;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+        }
+
+        #Frequency_Display {
+            width: 150px;
+            text-align: center;
+            padding: 5px;
+            font-size: 1.2rem;
+            border: 2px solid #f39c12;
+            border-radius: 5px;
+            background: #fff;
+            color: #1e272e;
+        }
+
+        .link {
+            display: block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: orange;
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Hearing Test</h2>
+    <div class="text-center mb-4">
+        <button class="btn btn-primary" onclick="setWaveform('sine')">Sine</button>
+        <button class="btn btn-warning" onclick="setWaveform('square')">Square</button>
+        <button class="btn btn-success" onclick="setWaveform('triangle')">Triangle</button>
+        <button class="btn btn-danger" onclick="setWaveform('sawtooth')">Sawtooth</button>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-info" onclick="startTest('left')">Left</button>
+        <button class="btn btn-secondary" onclick="startTest('right')">Right</button>
+        <button class="btn btn-info" onclick="startTest('both')">Both</button>
+    </div>
+    <div id="test-section" class="mt-5 text-center" style="display: none;">
+        <p id="current-channel" style="font-size: 1.5rem; color: #f39c12;">Channel: Left</p>
+        <div>
+            <p>Frequency (Hz)</p>
+            <input type="number" id="Frequency_Display" value="1000" min="20" max="20000" step="1" />
+        </div>
+        <div>
+            <p>Volume</p>
+            <input type="range" min="0" max="1" step="0.01" value="0.5" id="Volume_Slider">
+        </div>
+        <div class="text-center">
+            <button class="btn btn-success" onclick="playTone()">Play</button>
+            <button class="btn btn-danger" onclick="stopTone()">Stop</button>
+        </div>
+    </div>
+    <a id="chartLink" href="/chart" class="link">View Results</a>
+</div>
+
+<script>
+    let audioContext, oscillator, gainNode, panNode;
+    let waveform = 'sine';
+    let currentChannel = "left";
+    let isPlaying = false;
+
+    function startTest(channel) {
+        currentChannel = channel;
+        document.getElementById('current-channel').innerText = `Channel: ${channel.charAt(0).toUpperCase() + channel.slice(1)}`;
+        document.getElementById('test-section').style.display = "block";
+    }
+
+    function setWaveform(type) {
+        waveform = type;
+    }
+
+    function playTone() {
+        if (isPlaying) return;
+
+        const frequency = parseInt(document.getElementById('Frequency_Display').value);
+        if (isNaN(frequency) || frequency < 20 || frequency > 20000) {
+            alert("Please enter a valid frequency between 20 and 20,000 Hz.");
+            return;
+        }
+
+        isPlaying = true;
+
+        if (audioContext) {
+            audioContext.close();
+        }
+
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        oscillator = audioContext.createOscillator();
+        gainNode = audioContext.createGain();
+        panNode = audioContext.createStereoPanner();
+
+        oscillator.type = waveform;
+        oscillator.frequency.value = frequency;
+        gainNode.gain.value = document.getElementById('Volume_Slider').value;
+
+        if (currentChannel === 'left') {
+            panNode.pan.value = -1;
+        } else if (currentChannel === 'right') {
+            panNode.pan.value = 1;
+        } else {
+            panNode.pan.value = 0;
+        }
+
+        oscillator.connect(gainNode);
+        gainNode.connect(panNode);
+        panNode.connect(audioContext.destination);
+
+        oscillator.start();
+    }
+
+    function stopTone() {
+        if (!isPlaying) return;
+
+        isPlaying = false;
+        oscillator.stop();
+
+        const frequency = parseInt(document.getElementById('Frequency_Display').value);
+        if (isNaN(frequency) || frequency < 20 || frequency > 20000) {
+            alert("Please enter a valid frequency between 20 and 20,000 Hz.");
+            return;
+        }
+
+        const heard = confirm(`Could you hear the ${frequency} Hz tone in the ${currentChannel} ear?`);
+
+        fetch('/index', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ear: currentChannel,
+                frequency: frequency,
+                heard: heard
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                document.getElementById('chartLink').href = '/chart';
+                alert('Test result saved successfully!');
+            } else {
+                console.error('Server error:', data.message);
+                alert('Failed to save test result: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            alert('An error occurred while saving the test result.');
+        });
+    }
+</script>
+</body>
+</html>

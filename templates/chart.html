@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hearing Test Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('chart.jpg') no-repeat center center/cover;
+            color: #ecf0f1;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #f39c12;
+            margin-bottom: 30px;
+        }
+        canvas {
+            max-width: 100%;
+            height: 500px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 18px;
+            color: #fff;
+            background: #3498db;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Hearing Test Results</h1>
+    {% if results|length > 0 %}
+        <canvas id="hearingChart"></canvas>
+    {% else %}
+        <p>No test results available yet.</p>
+    {% endif %}
+    <a href="/" class="btn">🏠 Go to Home Page</a>
+</div>
+
+<script>
+
+    // Only run chart code if there are results
+    {% if results|length > 0 %}
+        const results = [
+            {% for result in results %}
+                {
+                    ear: "{{ result['ear'] }}",
+                    frequency: {{ result['frequency']|int }},
+                    heard: {{ 'true' if result['heard'] else 'false' }}
+                }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        console.log('Results from database:', results);
+
+        if (!results || results.length === 0) {
+            console.error('No results data available');
+        } else {
+            const earLabels = ['Left', 'Right', 'Both'];
+            const earMap = { left: 0, right: 1, both: 2 };
+
+            const dataByEar = {
+                left: [],
+                right: [],
+                both: []
+            };
+
+            // Group results by ear
+            results.forEach(result => {
+                const ear = result.ear.toLowerCase();
+                if (earMap.hasOwnProperty(ear)) {
+                    dataByEar[ear].push({
+                        x: result.frequency,
+                        y: earMap[ear],
+                        heard: result.heard
+                    });
+                } else {
+                    console.warn(`Invalid ear value: ${ear}`);
+                }
+            });
+
+            // Prepare datasets
+            const chartData = {
+                labels: [...new Set(results.map(r => r.frequency))].sort((a, b) => a - b),
+                datasets: [{
+                    label: 'Hearing Result',
+                    data: [
+                        ...dataByEar.left,
+                        ...dataByEar.right,
+                        ...dataByEar.both
+                    ].sort((a, b) => a.x - b.x),
+                    borderColor: '#e74c3c',
+                    borderWidth: 4,
+                    backgroundColor: 'rgba(231, 76, 60, 0.3)',
+                    pointBackgroundColor: '#f1c40f',
+                    pointRadius: 7,
+                    tension: 0.4,
+                    fill: false
+                }]
+            };
+
+            // Render the chart
+            const canvas = document.getElementById('hearingChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: chartData,
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'top' },
+                                tooltip: {
+                                    callbacks: {
+                                        label: (context) => {
+                                            const earIndex = Math.floor(context.raw.y);
+                                            const ear = earLabels[earIndex];
+                                            const heardStatus = context.raw.heard ? 'Heard' : 'Missed';
+                                            return `${ear} Ear - ${context.raw.x} Hz (${heardStatus})`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    type: 'linear',
+                                    position: 'bottom',
+                                    title: {
+                                        display: true,
+                                        text: 'Frequency (Hz)',
+                                        color: '#f39c12'
+                                    },
+                                    min: 0,
+                                    max: 8000
+                                },
+                                y: {
+                                    type: 'linear',
+                                    min: -1,
+                                    max: 3,
+                                    ticks: {
+                                        callback: (value) => {
+                                            if (value === 0) return 'Left';
+                                            if (value === 1) return 'Right';
+                                            if (value === 2) return 'Both';
+                                            return '';
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Ear',
+                                        color: '#f39c12'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Failed to get canvas context');
+                }
+            } else {
+                console.error('Canvas element not found');
+            }
+        }
+    {% endif %}
+</script>
+</body>
+</html>

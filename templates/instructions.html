@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Instructions - Hearing Test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Body with scrollable content */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;           /* Ensures background covers full viewport */
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            animation: gradientAnimation 10s infinite alternate;
+            overflow-y: auto;            /* Enables scrolling for longer content */
+            color: #fff;
+        }
+
+        /* Gradient animation */
+        @keyframes gradientAnimation {
+            0% {
+                background: linear-gradient(135deg, #6a11cb, #2575fc);
+            }
+            50% {
+                background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            }
+            100% {
+                background: linear-gradient(135deg, #4facfe, #00f2fe);
+            }
+        }
+
+        /* Container styling */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 60px;
+            max-width: 1000px;
+            margin: 50px auto;
+            color: #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Heading styles */
+        h1, h3 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s;
+        }
+
+        h3 {
+            font-size: 28px;
+            margin-top: 40px;
+            animation: fadeInUp 1s;
+        }
+
+        /* Paragraph and list styling */
+        p, ul {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            padding-left: 30px;
+            position: relative;
+        }
+
+        li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        /* Button styling */
+        .btn {
+            display: inline-block;
+            font-size: 20px;
+            padding: 14px 40px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-top: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px;
+                margin: 30px auto;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h3 {
+                font-size: 24px;
+            }
+
+            p, ul {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Instructions for the Hearing Test</h1>
+    <p>Welcome to the Hearing Test page! Follow the instructions below to use the test and record your results.</p>
+
+    <h3>1. Logging In</h3>
+    <p>Before you begin the hearing test, you need to log in to the website. If you are not already logged in, go to the login page and provide your credentials. Once logged in, you can access your hearing test results and start a new test.</p>
+
+    <h3>2. Starting the Test</h3>
+    <p>To begin the test, go to the dashboard page, where you can see the option to start a new test.</p>
+    <ul>
+        <li>You can choose to test the left ear, right ear, or both ears.</li>
+        <li>Once you select the ear, the test will start with a tone at a specific frequency.</li>
+    </ul>
+
+    <h3>3. Selecting Waveform</h3>
+    <p>You can choose from four different waveforms for the tone:</p>
+    <ul>
+        <li><strong>Sine Wave:</strong> A smooth, continuous tone.</li>
+        <li><strong>Square Wave:</strong> A tone with sharp transitions between high and low frequencies.</li>
+        <li><strong>Triangle Wave:</strong> A tone with gradual rises and falls in frequency.</li>
+        <li><strong>Sawtooth Wave:</strong> A tone with a rapid rise and gradual fall in frequency.</li>
+    </ul>
+
+    <h3>4. Adjusting Frequency and Volume</h3>
+    <p>Once you start the test, you will see an option to adjust the frequency (Hz) and volume. You can change the frequency by typing a value in the input box and adjust the volume using the slider.</p>
+    <ul>
+        <li>The frequency range is between 20 Hz and 20,000 Hz.</li>
+        <li>The volume range is between 0 (silent) and 1 (maximum volume).</li>
+    </ul>
+
+    <h3>5. Playing and Stopping the Tone</h3>
+    <p>Click the "Play" button to listen to the tone. You will then need to confirm if you could hear the tone in the selected ear. Once the test is finished, you can stop the tone using the "Stop" button.</p>
+
+    <h3>6. Test Results</h3>
+    <p>After completing each test, the result is saved with the frequency you tested and whether you could hear the tone in each ear. You will be able to view your current and previous test results in the dashboard page.</p>
+
+    <h3>7. Hearing Ability Above 500 Hz</h3>
+    <p><strong>Important:</strong> If you are unable to hear frequencies above 500 Hz, it may indicate a hearing issue. We strongly recommend that you consult a medical professional or audiologist to get a proper diagnosis and further advice. It’s important to address any concerns regarding hearing loss.</p>
+
+    <h3>8. Logging Out</h3>
+    <p>Once you are done with the test, you can log out by clicking the "Logout" button in the dashboard page. This will ensure that your session is closed securely.</p>
+
+    <div class="text-center">
+        <a href="i-1.html" class="btn">Go Back to Home Page</a>
+    </div>
+</div>
+
+</body>
+</html>
